@@ -1,40 +1,43 @@
 <div>
-    <div style="padding: 5% 5%">
+    <div style="padding: 10% 0 0 5%" >
         <h2>
             Calculadora
         </h2>
     </div>
     <div class="container">
-        <div style="width: 400px; padding:  0 5%;">
-            <div>
-                <mat-form-field appearance="outline" style="width: 100%; height: 100px; text-align: right;">
-                    <input matInput readonly="true" [(ngModel)]="result">
-                </mat-form-field>
-                <button mat-raised-button (click)="insertChar('1')">1</button>
-                <button mat-raised-button (click)="insertChar('2')">2</button>
-                <button mat-raised-button (click)="insertChar('3')">3</button>
-                <button mat-raised-button color="primary" (click)="executeOperation(1)">+</button>
+        <div style="width: 400px; padding: 5%;">
+            <div class="calculator">
+                <div >
+                    <mat-form-field appearance="fill" style="width: 100%; text-align: right;">
+                        <input matInput readonly="true" [(ngModel)]="result">
+                    </mat-form-field>
+                    <button mat-raised-button (click)="insertChar('1')">1</button>
+                    <button mat-raised-button (click)="insertChar('2')">2</button>
+                    <button mat-raised-button (click)="insertChar('3')">3</button>
+                    <button mat-raised-button color="primary" (click)="executeOperation(1)">+</button>
+                </div>
+                <div>
+                    <button mat-raised-button (click)="insertChar('4')">4</button>
+                    <button mat-raised-button (click)="insertChar('5')">5</button>
+                    <button mat-raised-button (click)="insertChar('6')">6</button>
+                    <button mat-raised-button color="primary" (click)="executeOperation(2)">-</button>
+                </div>
+                <div>
+                    <button mat-raised-button (click)="insertChar('7')">7</button>
+                    <button mat-raised-button (click)="insertChar('8')">8</button>
+                    <button mat-raised-button (click)="insertChar('9')">9</button>
+                    <button mat-raised-button color="primary" (click)="executeOperation(3)">X</button>
+                </div>
+                <div>
+                    <button mat-raised-button (click)="insertChar('0')">0</button>
+                    <button mat-raised-button (click)="onResult()">=</button>
+                    <button mat-raised-button (click)="clear()">apagar</button>
+                    <button mat-raised-button color="primary" (click)="executeOperation(4)">/</button>
+                </div>
             </div>
-            <div>
-                <button mat-raised-button (click)="insertChar('4')">4</button>
-                <button mat-raised-button (click)="insertChar('5')">5</button>
-                <button mat-raised-button (click)="insertChar('6')">6</button>
-                <button mat-raised-button color="primary" (click)="executeOperation(2)">-</button>
-            </div>
-            <div>
-                <button mat-raised-button (click)="insertChar('7')">7</button>
-                <button mat-raised-button (click)="insertChar('8')">8</button>
-                <button mat-raised-button (click)="insertChar('9')">9</button>
-                <button mat-raised-button color="primary" (click)="executeOperation(3)">X</button>
-            </div>
-            <div>
-                <button mat-raised-button (click)="insertChar('0')">0</button>
-                <button mat-raised-button (click)="onResult()">=</button>
-                <button mat-raised-button (click)="clear()">apagar</button>
-                <button mat-raised-button color="primary" (click)="executeOperation(4)">/</button>
-            </div>
+            
         </div>
-        <div style="width: 600px; padding: 0 5%;">
+        <div style="width: 600px; padding: 5%;">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
                 <!-- Position Column -->
@@ -70,7 +73,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <div style="display: flex; flex-wrap: wrap; justify-content: flex-end;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; padding: 10px 0;">
                 <button style="width: 40%;" mat-raised-button color="primary" (click)="cleanHistory()">Limpar
                     Histórico</button>
             </div>
