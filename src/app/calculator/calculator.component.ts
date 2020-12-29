@@ -56,22 +56,24 @@ export class CalculatorComponent {
         this.firstValue = Number(this.result);
         this.result += ' ';
       }
-    }
-    if (operation === enumOperation.addition) {
-      this.operation = 'Adição';
-      this.result += '+ ';
-    }
-    if (operation === enumOperation.subtraction) {
-      this.operation = 'Subtração';
-      this.result += '- ';
-    }
-    if (operation === enumOperation.multiplication) {
-      this.operation = 'Multiplicação';
-      this.result += '* ';
-    }
-    if (operation === enumOperation.division) {
-      this.operation = 'Divisão';
-      this.result += '/ ';
+      if (!this.operation) {
+        if (operation === enumOperation.addition) {
+          this.operation = 'Adição';
+          this.result += '+ ';
+        }
+        if (operation === enumOperation.subtraction) {
+          this.operation = 'Subtração';
+          this.result += '- ';
+        }
+        if (operation === enumOperation.multiplication) {
+          this.operation = 'Multiplicação';
+          this.result += '* ';
+        }
+        if (operation === enumOperation.division) {
+          this.operation = 'Divisão';
+          this.result += '/ ';
+        }
+      }
     }
   }
 
@@ -125,6 +127,7 @@ export class CalculatorComponent {
     this.resetResult = true;
     this.firstValue = 0;
     this.secondValue = 0;
+    this.operation = undefined;
   }
 
   cleanHistory(): void {
