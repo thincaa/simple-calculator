@@ -43,6 +43,7 @@ export class CalculatorComponent {
       this.result = '0';
       this.resetResult = false;
     }
+
     if (this.result === '0') {
       this.result = char;
     } else {
@@ -55,23 +56,28 @@ export class CalculatorComponent {
       if (!this.firstValue) {
         this.firstValue = Number(this.result);
         this.result += ' ';
+        this.resetResult = false;
       }
       if (!this.operation) {
         if (operation === enumOperation.addition) {
           this.operation = 'Adição';
           this.result += '+ ';
+          this.resetResult = false;
         }
         if (operation === enumOperation.subtraction) {
           this.operation = 'Subtração';
           this.result += '- ';
+          this.resetResult = false;
         }
         if (operation === enumOperation.multiplication) {
           this.operation = 'Multiplicação';
           this.result += '* ';
+          this.resetResult = false;
         }
         if (operation === enumOperation.division) {
           this.operation = 'Divisão';
           this.result += '/ ';
+          this.resetResult = false;
         }
       }
     }
