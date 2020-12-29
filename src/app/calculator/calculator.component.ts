@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
+
 import { MatTableDataSource } from '@angular/material/table';
 
-export interface resultModel {
-  index: number,
-  firstValue: number,
-  secondValue: number,
-  operation: string,
-  result: number
+export interface ResultModel {
+  index: number;
+  firstValue: number;
+  secondValue: number;
+  operation: string;
+  result: number;
 }
 
 export enum enumOperation {
@@ -15,7 +16,8 @@ export enum enumOperation {
   multiplication = 3,
   division = 4,
 }
-let ELEMENT_DATA: resultModel[] = []
+
+let ELEMENT_DATA: ResultModel[] = [];
 
 @Component({
   selector: 'app-calculator',
@@ -24,90 +26,99 @@ let ELEMENT_DATA: resultModel[] = []
 })
 export class CalculatorComponent {
   result: string;
-  dataSource = new MatTableDataSource(ELEMENT_DATA)
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
   firstValue: number;
   secondValue: number;
   operation: string;
-  index: number = 0;
-  resetResult: boolean = false;
+  index = 0;
+  resetResult = false;
   displayedColumns: string[] = ['index', 'firstValue', 'secondValue', 'operation', 'result'];
   constructor(private changeDetectorRefs: ChangeDetectorRef) {
-    this.result = '0'
-    this.dataSource.connect()
+    this.result = '0';
+    this.dataSource.connect();
   }
-  insertChar(char: string) {
-    if(this.resetResult){
-      this.result = '0'
+
+  insertChar(char: string): void {
+    if (this.resetResult) {
+      this.result = '0';
       this.resetResult = false;
     }
-    if (this.result == '0') {
+    if (this.result === '0') {
       this.result = char;
     } else {
       this.result += char;
     }
   }
 
-  executeOperation(operation: number) {
+  executeOperation(operation: number): void {
     if (this.result !== '0') {
       if (!this.firstValue) {
         this.firstValue = Number(this.result);
-        this.result = '0';
+        this.result += ' ';
       }
     }
     if (operation === enumOperation.addition) {
       this.operation = 'Adição';
+      this.result += '+ ';
     }
     if (operation === enumOperation.subtraction) {
       this.operation = 'Subtração';
+      this.result += '- ';
     }
     if (operation === enumOperation.multiplication) {
       this.operation = 'Multiplicação';
+      this.result += '* ';
     }
     if (operation === enumOperation.division) {
       this.operation = 'Divisão';
+      this.result += '/ ';
     }
-
   }
 
-  onResult() {
+  onResult(): void {
     if (this.firstValue) {
-      this.secondValue = Number(this.result);
-      if (this.operation == 'Adição') {
+      if (this.operation === 'Adição') {
+        const second = this.result.trim().split('+');
+        this.secondValue = Number(second[1]);
         this.result = String(this.firstValue + this.secondValue);
         this.addItemArray();
       }
-      if (this.operation == 'Subtração') {
+      if (this.operation === 'Subtração') {
+        const second = this.result.trim().split('-');
+        this.secondValue = Number(second[1]);
         this.result = String(this.firstValue - this.secondValue);
         this.addItemArray();
       }
-      if (this.operation == 'Multiplicação') {
+      if (this.operation === 'Multiplicação') {
+        const second = this.result.trim().split('*');
+        this.secondValue = Number(second[1]);
         this.result = String(this.firstValue * this.secondValue);
         this.addItemArray();
       }
-      if (this.operation == 'Divisão') {
+      if (this.operation === 'Divisão') {
+        const second = this.result.trim().split('/');
+        this.secondValue = Number(second[1]);
         this.result = String(this.firstValue / this.secondValue);
         this.addItemArray();
       }
     }
-
   }
 
-  clear() {
+  clear(): void {
     this.firstValue = 0;
     this.secondValue = 0;
     this.result = '0';
   }
 
-  addItemArray() {
-    debugger
+  addItemArray(): void {
     this.index++;
-    let resultArray: resultModel = {
+    const resultArray: ResultModel = {
       index: this.index,
       firstValue: this.firstValue,
       secondValue: this.secondValue,
       operation: this.operation,
       result: Number(this.result)
-    }
+    };
     ELEMENT_DATA.push(resultArray);
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.changeDetectorRefs.detectChanges();
@@ -115,7 +126,8 @@ export class CalculatorComponent {
     this.firstValue = 0;
     this.secondValue = 0;
   }
-  cleanHistory(){
+
+  cleanHistory(): void {
     ELEMENT_DATA = [];
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     this.changeDetectorRefs.detectChanges();

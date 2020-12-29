@@ -1,12 +1,20 @@
 import { TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppComponent } from './app.component';
+import { CalculatorComponent } from './calculator/calculator.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        CalculatorComponent,
       ],
+      imports: [
+        MatFormFieldModule,
+        FormsModule
+      ]
     }).compileComponents();
   });
 
@@ -22,10 +30,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('simple-calculator');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('simple-calculator app is running!');
-  });
 });
