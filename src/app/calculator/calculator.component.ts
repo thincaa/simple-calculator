@@ -19,6 +19,13 @@ export enum enumOperation {
 
 let ELEMENT_DATA: ResultModel[] = [];
 
+const OPERATIONS = [
+  { operationCode: enumOperation.addition, operation: 'Adição', operationChar: '+' },
+  { operationCode: enumOperation.subtraction, operation: 'Subtração', operationChar: '-' },
+  { operationCode: enumOperation.multiplication, operation: 'Multíplicação', operationChar: '*' },
+  { operationCode: enumOperation.division, operation: 'Divisão', operationChar: '/' },
+];
+
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
@@ -59,56 +66,27 @@ export class CalculatorComponent {
         this.resetResult = false;
       }
       if (!this.operation) {
-        if (operation === enumOperation.addition) {
-          this.operation = 'Adição';
-          this.result += '+ ';
-          this.resetResult = false;
-        }
-        if (operation === enumOperation.subtraction) {
-          this.operation = 'Subtração';
-          this.result += '- ';
-          this.resetResult = false;
-        }
-        if (operation === enumOperation.multiplication) {
-          this.operation = 'Multiplicação';
-          this.result += '* ';
-          this.resetResult = false;
-        }
-        if (operation === enumOperation.division) {
-          this.operation = 'Divisão';
-          this.result += '/ ';
-          this.resetResult = false;
-        }
+        OPERATIONS.forEach(element => {
+          if (operation === element.operationCode) {
+            this.operation = element.operation;
+            this.result += element.operationChar + ' ';
+            this.resetResult = false;
+          }
+        });
       }
     }
   }
 
   onResult(): void {
     if (this.firstValue) {
-      if (this.operation === 'Adição') {
-        const second = this.result.trim().split('+');
-        this.secondValue = Number(second[1]);
-        this.result = String(this.firstValue + this.secondValue);
-        this.addItemArray();
-      }
-      if (this.operation === 'Subtração') {
-        const second = this.result.trim().split('-');
-        this.secondValue = Number(second[1]);
-        this.result = String(this.firstValue - this.secondValue);
-        this.addItemArray();
-      }
-      if (this.operation === 'Multiplicação') {
-        const second = this.result.trim().split('*');
-        this.secondValue = Number(second[1]);
-        this.result = String(this.firstValue * this.secondValue);
-        this.addItemArray();
-      }
-      if (this.operation === 'Divisão') {
-        const second = this.result.trim().split('/');
-        this.secondValue = Number(second[1]);
-        this.result = String(this.firstValue / this.secondValue);
-        this.addItemArray();
-      }
+      OPERATIONS.forEach(element => {
+        if (this.operation === element.operation) {
+          const second = this.result.trim().split(element.operationChar);
+          this.secondValue = Number(second[1]);
+          this.result = eval(this.firstValue + element.operationChar + this.secondValue);
+          this.addItemArray();
+        }
+      });
     }
   }
 
