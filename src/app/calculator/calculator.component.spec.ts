@@ -75,7 +75,9 @@ describe('CalculatorComponent', () => {
     component.executeOperation(4);
     component.insertChar('2');
     component.onResult();
+    component.insertChar('8');
     component.clear();
+    component.executeOperation(4);
     expect(component.result).toEqual('0');
   });
   it('must insert item in the table', () => {
