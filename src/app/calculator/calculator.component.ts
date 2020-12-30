@@ -83,7 +83,7 @@ export class CalculatorComponent {
         if (this.operation === element.operation) {
           const second = this.result.trim().split(element.operationChar);
           this.secondValue = Number(second[1]);
-          this.result = eval(this.firstValue + element.operationChar + this.secondValue);
+          this.result = String(eval(this.firstValue + element.operationChar + this.secondValue));
           this.addItemArray();
         }
       });
